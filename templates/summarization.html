@@ -1,0 +1,35 @@
+    <title>Translator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <nav class="flex">
+            <div class="flex-shrink-0 mr-4">
+                <img src="/logo.png" alt="Logo" class="w-8 h-8">
+            </div>
+            <ul class="flex items-center space-x-4">
+                <li><a href="/translator" class="text-blue-500"><i class="fas fa-language mr-1"></i> Translator</a></li>
+                <li><a href="/summary" class="text-blue-500"><i class="fas fa-file-alt mr-1"></i> Summary</a></li>
+                <li><a href="/paraphraser" class="text-blue-500"><i class="fas fa-exchange-alt mr-1"></i> Paraphraser</a></li>
+                <li><a href="/synonymizer" class="text-blue-500"><i class="fas fa-synagogue mr-1"></i> Synonymizer</a></li>
+                <li><a href="/presentations" class="text-blue-500"><i class="fas fa-desktop mr-1"></i> Presentations</a></li>
+                <li><a href="/plagiarism-checker" class="text-blue-500"><i class="fas fa-search mr-1"></i> Plagiarism Checker</a></li>
+            </ul>
+        </nav>
+
+        <h1 class="text-3xl font-bold mb-4">Summarizer</h1>
+
+        <form action="/translate" method="post">
+            <div class="grid grid-cols-2 gap-4">
+                <textarea id="text" name="text" class="px-4 py-2 w-full h-56 border border-gray-300 rounded-md" placeholder="Enter your text here..."></textarea>
+                <textarea id="summarized_text" disabled class="px-4 py-2 w-full h-56 border border-gray-300 rounded-md" placeholder="Summarized text will appear here...">{{ translated_text }}</textarea>
+            </div>
+            <!-- Добавленный список с языками -->
+            <div class="mt-4">
+                <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-400"><i class="fas fa-language mr-1"></i> Summarize</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
