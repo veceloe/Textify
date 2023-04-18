@@ -20,6 +20,7 @@
                 <li><a href="/synonymizer" class="text-blue-500"><i class="fas fa-synagogue mr-1"></i> Synonymizer</a></li>
                 <li><a href="/presentations" class="text-blue-500"><i class="fas fa-desktop mr-1"></i> Presentations</a></li>
                 <li><a href="/plagiarism-checker" class="text-blue-500"><i class="fas fa-search mr-1"></i> Plagiarism Checker</a></li>
+                <li><a href="/generator_code" class="text-blue-500"><i class="fas fa-coder mr-1"></i> Generator_code</a></li>
             </ul>
         </nav>
 
@@ -52,6 +53,33 @@
             </div>
             <div class="mt-4">
                 <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-400"><i class="fas fa-file-alt mr-1"></i> summarize</button>
+            </div>
+
+        </form>
+
+        <h1 class="text-3xl font-bold mb-4">GPT-4 Generator</h1>
+
+        <form action="/generator_code" method="post">
+           <div class="grid grid-cols-2 gap-4">
+                <textarea id="code_text" name="text" class="px-4 py-2 w-full h-56 border border-gray-300 rounded-md" placeholder="Enter your text here..."></textarea>
+                <textarea id="generated_code" disabled class="px-4 py-2 w-full h-56 border border-gray-300 rounded-md" placeholder="Generated code will appear here...">{{ generated_code }}</textarea>
+            </div>
+            <select name="language" class="px-4 py-2 w-full border border-gray-300 rounded-md">
+                <option value="C++">C++ <i class="fas fa-globe mr-1"></i></option>
+                <option value="C">C <i class="fas fa-globe mr-1"></i></option>
+                <option value="Python">Python <i class="fas fa-globe mr-1"></i></option>
+                <option value="C#">C# <i class="fas fa-globe mr-1"></i></option>
+                <option value="Java">Java <i class="fas fa-globe mr-1"></i></option>
+                <option value="JavaScript">JavaScript <i class="fas fa-globe mr-1"></i></option>
+                <option value="TypeScript">TypeScript <i class="fas fa-globe mr-1"></i></option>
+                <option value="Kotlin">Kotlin <i class="fas fa-globe mr-1"></i></option>
+                <option value="Swift">Swift <i class="fas fa-globe mr-1"></i></option>
+                <option value="Go">Go <i class="fas fa-globe mr-1"></i></option>
+                <!-- Добавьте другие языки и их соответствующие коды -->
+            </select>
+            <!-- Добавленный список с языками -->
+            <div class="mt-4">
+                <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-400"><i class="fas fa-coder mr-1"></i> Generate code</button>
             </div>
 
         </form>

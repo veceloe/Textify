@@ -6,7 +6,7 @@ import aiohttp
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
-YOUR_API_KEY = "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"
+YOUR_API_KEY = "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"
 YOUR_API_URL = "https://api.openai.com/v1/chat/completions"
 
 
@@ -55,3 +55,22 @@ async def post_summarize(request: Request):
 
     return templates.TemplateResponse("index.html", {"request": request, "summarized_text": summarized_text})
 
+
+@app.post("/generator_code", response_class=HTMLResponse)
+async def post_generate_code(request: Request):
+    form_data = await request.form()
+    text = form_data["text"]
+    language = form_data["language"]  # Получение выбранного языка из списка
+    headers = {"Authorization": f"Bearer {YOUR_API_KEY}"}
+    data = {
+        "model": "gpt-3.5-turbo",
+        "messages": [{"role": "user", "content": text + f"\nwrite the code that performs this task in a programming language to {language}"}]
+    }
+
+    async with aiohttp.ClientSession() as session:
+        async with session.post(YOUR_API_URL, json=data, headers=headers) as response:
+            result = await response.json()
+            print(result)
+            generated_code = result["choices"][0]["message"]["content"].strip()
+
+    return templates.TemplateResponse("index.html", {"request": request, "generated_code": generated_code})
