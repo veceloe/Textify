@@ -6,7 +6,7 @@ import aiohttp
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
-YOUR_API_KEY = "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"
+YOUR_API_KEY = "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"
 YOUR_API_URL = "https://api.openai.com/v1/chat/completions"
 
 
@@ -64,7 +64,7 @@ async def post_generate_code(request: Request):
     headers = {"Authorization": f"Bearer {YOUR_API_KEY}"}
     data = {
         "model": "gpt-3.5-turbo",
-        "messages": [{"role": "user", "content": text + f"\nwrite the code that performs this task in a programming language to {language}"}]
+        "messages": [{"role": "user", "content": text + f"\nwrite only the code that performs this task in a programming language to {language}"}]
     }
 
     async with aiohttp.ClientSession() as session:
@@ -74,3 +74,41 @@ async def post_generate_code(request: Request):
             generated_code = result["choices"][0]["message"]["content"].strip()
 
     return templates.TemplateResponse("index.html", {"request": request, "generated_code": generated_code})
+
+
+@app.post("/synonymizer", response_class=HTMLResponse)
+async def post_synonymizer(request: Request):
+    form_data = await request.form()
+    text = form_data["text"]
+    headers = {"Authorization": f"Bearer {YOUR_API_KEY}"}
+    data = {
+        "model": "gpt-3.5-turbo",
+        "messages": [{"role": "user", "content": text + f"\nнапиши этот же текст но префразировав и заменяя слова синонимами"}]
+    }
+
+    async with aiohttp.ClientSession() as session:
+        async with session.post(YOUR_API_URL, json=data, headers=headers) as response:
+            result = await response.json()
+            print(result)
+            paraphrased_text = result["choices"][0]["message"]["content"].strip()
+
+    return templates.TemplateResponse("index.html", {"request": request, "paraphrased_text": paraphrased_text})
+
+
+@app.post("/essay_generator", response_class=HTMLResponse)
+async def post_essay_generator(request: Request):
+    form_data = await request.form()
+    text = form_data["text"]
+    headers = {"Authorization": f"Bearer {YOUR_API_KEY}"}
+    data = {
+        "model": "gpt-3.5-turbo",
+        "messages": [{"role": "user", "content": text + f"\nнапиши только ээсе по написанному выше описанию"}]
+    }
+
+    async with aiohttp.ClientSession() as session:
+        async with session.post(YOUR_API_URL, json=data, headers=headers) as response:
+            result = await response.json()
+            print(result)
+            generated_text = result["choices"][0]["message"]["content"].strip()
+
+    return templates.TemplateResponse("index.html", {"request": request, "generated_text": generated_text})
